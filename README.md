@@ -20,7 +20,9 @@
   <sup>3</sup>Department of Development and Regeneration, KU Leuven, Leuven, Belgium
 </div>
 
-> Repository for the paper **_Balancing Multimodal Training Through Game-Theoretic Regularization_.**
+> 
+> Repository for the paper: **_Balancing Multimodal Training Through Game-Theoretic Regularization_.**
+>
 > Accepted as a **Spotlight at NeurIPS 2025**.  
 > 
 > The paper introduces the Multimodal Competition Regularizer (MCR) to balance modality contributions during multimodal training.
@@ -39,7 +41,7 @@ MCR is a regularizer that addresses modality competition in multimodal learning.
 
 The total loss is composed of three key terms:
 ```math
-$L= L_{MIPD} + L_{Con} + L_{CEB}$
+L= L_{MIPD} + L_{Con} + L_{CEB}
 ```
 - $L_{MIPD}$: Maximizes each modality's unique task-relevant information using efficient latent-space permutations.
 
@@ -47,13 +49,15 @@ $L= L_{MIPD} + L_{Con} + L_{CEB}$
 
 - $L_{CEB}$: Minimizes task-irrelevant shared information to reduce noise.
 
-![Main Table Results](figs/Method_MCR.png) 
+<div align="center">
+  <img src="figs/Method_MCR.png" alt="Method MCR" style="width: 80%;">
+</div>
 
 A game-theoretic framework balances these contributions, where a hyperparameter 
 k∈[−1,0,1] sets the strategy (Greedy, Independent, Collaborative).
 
 ```math
-$$\nabla_{\theta_{1}}\mathcal{L}_{MIPD}=\lambda_{M}(\nabla_{\theta_{1}}\mathcal{L}_{MIPD_{1}}+k\nabla_{\theta_{1}}\mathcal{L}_{MIPD_{2}})$$
+\nabla_{\theta_{1}}\mathcal{L}_{MIPD}=\lambda_{M}(\nabla_{\theta_{1}}\mathcal{L}_{MIPD_{1}}+k\nabla_{\theta_{1}}\mathcal{L}_{MIPD_{2}})
 ```
 
 
@@ -63,15 +67,18 @@ We evaluate **MCR** on six multimodal benchmarks, covering **emotion recognition
 
 ### Main Results
 
-Table results demonstrate that MCR balances modality contributions more effectively, leading to consistent improvements across diverse multimodal domains.
-![Main Table Results](figs/Results_table_MCR.png)
+<div align="center">
+  <img src="figs/Results_table_MCR.png" alt="Main Table Results" style="width: 80%;">
+</div>
 
 ### Error Analysis
 
 The bar plots below show how MCR affects error distribution on CREMA-D (ResNet and Conformer backbones).
 Compared to baselines, MCR significantly reduces cases where only one modality is correct (e.g., video correct but audio wrong).  
 
-![Error Matrices CREMA-D Results](figs/Results_ErrorMatrices_MCR.png)
+<div align="center">
+  <img src="figs/Results_ErrorMatrices_MCR.png" alt="Error Matrices CREMA-D Results" style="width: 80%;">
+</div>
 
 This analysis highlights that we should improve further the synergy of the framework, if you find that interesting join us!
 ## Repository Structure
