@@ -1,9 +1,13 @@
 # Multimodal Competition Regularizer (MCR)
 
-> This repository contains the official implementation for the paper:
-> ### **_Balancing Multimodal Training Through Game-Theoretic Regularization_** 
-> #### **_Accepted as a Spotlight at NeurIPS 2025_**
+<div align="center">
 
+Official implementation of the paper  
+
+### **_Balancing Multimodal Training Through Game-Theoretic Regularization_**  
+#### Accepted as a **_Spotlight at NeurIPS 2025_**
+
+</div>
 ---
 
 [![NeurIPS 2025](https://img.shields.io/badge/NeurIPS-2025%20Spotlight-brightgreen)](https://nips.cc/)
