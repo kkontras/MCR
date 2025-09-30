@@ -20,7 +20,7 @@
   <sup>3</sup>Department of Development and Regeneration, KU Leuven, Leuven, Belgium
 </div>
 
-<!-- blank line -->
+---
 
 > Repository for the paper: **_Balancing Multimodal Training Through Game-Theoretic Regularization_.**
 >
