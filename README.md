@@ -20,7 +20,8 @@
   <sup>3</sup>Department of Development and Regeneration, KU Leuven, Leuven, Belgium
 </div>
 
-> 
+<!-- blank line -->
+
 > Repository for the paper: **_Balancing Multimodal Training Through Game-Theoretic Regularization_.**
 >
 > Accepted as a **Spotlight at NeurIPS 2025**.  
@@ -35,7 +36,7 @@ Current multimodal training methods often fail because one data source (modality
 
 ---
 
-##Method
+## Method
 
 MCR is a regularizer that addresses modality competition in multimodal learning. It uses a game-theoretic framework inspired by mutual information (MI) decomposition to balance modality contributions.
 
@@ -94,7 +95,6 @@ MCR/
 │── posthoc/            # Post-hoc Testing & Evaluation scripts
 │── utils/              # Utility scripts
 │── run.sh              # Shell script to launch training/testing (full or noisy)
-│── train.py            # Training entry point
 │── train.py            # Training entry point
 │── requirements.txt    # Dependencies
 └── README.md           # You are here
