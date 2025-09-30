@@ -50,7 +50,7 @@ L= L_{MIPD} + L_{Con} + L_{CEB}
 - $L_{CEB}$: Minimizes task-irrelevant shared information to reduce noise.
 
 <div align="center">
-  <img src="figs/Method_MCR.png" alt="Method MCR" style="width: 80%;">
+  <img src="figs/Method_concept_MCR.png" alt="Method MCR" style="width: 80%;">
 </div>
 
 A game-theoretic framework balances these contributions, where a hyperparameter 
