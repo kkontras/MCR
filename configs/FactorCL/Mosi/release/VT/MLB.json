@@ -1,0 +1,51 @@
+{
+  "model": {
+    "model_class": "Base_Model",
+    "args": {
+      "bias_infusion": {
+        "method": "OGM-Mine_Reg",
+        "alpha": 1.0,
+        "starting_epoch": 0,
+        "ending_epoch": 1500,
+        "use": true,
+        "plot": false
+      },
+    "multi_loss": {
+      "multi_supervised_w": {
+        "combined": 1,
+        "c": 1,
+        "g": 1
+      }
+    }
+    },
+    "save_dir": "MLB_{}.pth.tar",
+    "encoders": [
+      {
+        "model": "FactorCL_Uni",
+        "args": {
+          "n_features": 20,
+          "hidden_size": 40,
+          "modality": "c",
+          "num_classes": 1,
+          "freeze_encoder": false},
+        "pretrainedEncoder": {
+          "use": false,
+          "dir": "unimodal_video_{}_lr0.0001.pth.tar"
+        }
+      },
+      {
+        "model": "FactorCL_Uni",
+        "args": {
+          "n_features": 300,
+          "hidden_size": 40,
+          "modality": "g",
+          "num_classes": 1,
+          "freeze_encoder": false},
+        "pretrainedEncoder": {
+          "use": false,
+          "dir": "unimodal_text_{}_lr0.0001.pth.tar"
+        }
+      }
+    ]
+  }
+}

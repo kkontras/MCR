@@ -1,0 +1,38 @@
+{
+  "scheduler": {"type":"cosanneal", "max_lr": 0.03, "warm_up_steps": 31655},
+  "optimizer": {
+    "type": "Adaw",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.02
+  },
+  "dataset": {
+     "modalities":{
+          "layout":{"activate": false},
+          "flow": {"activate": false},
+          "video": {"activate": true}
+      }
+  },
+  "model": {
+    "model_class": "All3Model_Ens",
+    "args": {
+      "modality": "video",
+      "activate_model": {"layout": false, "flow": false, "video": true},
+      "swin_backbone": "swin_pretraining_kinetikcs400_1k.pth",
+      "clip_grad": true,
+      "clip_value": 5.0,
+      "d_model": 512,
+      "num_frames":16,
+      "num_classes": 174,
+      "bias_infusion": {
+        "method": false
+      },
+      "multi_loss": {
+        "multi_supervised_w": {
+             "combined": 1
+          }
+      }
+    },
+    "load_ongoing": false,
+    "save_dir": "unimodal_video_{}.pth.tar"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "training_params": {
+    "batch_size": 8,
+    "tdqm_disable": true
+  },
+  "dataset": {"return_data": {"video": false, "spectrogram": false, "audio":true}},
+  "model": {
+    "model_class": "Audio_HubertAudioset",
+    "args": {
+      "d_model": 768,
+      "num_classes": 28,
+      "fc_inner": 64,"dropout": 0.1,
+      "bias_infusion": {
+        "method": false
+      },
+      "multi_loss": {
+        "multi_supervised_w": {
+             "combined": 1
+          }
+      }
+    },
+    "load_ongoing": false,
+    "save_dir": "unimodal_audio_{}.pth.tar"
+  }
+}

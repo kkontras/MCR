@@ -1,0 +1,2 @@
+cd facial_features
+python face_extractor.py

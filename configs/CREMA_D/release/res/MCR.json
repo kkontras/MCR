@@ -1,0 +1,71 @@
+{
+  "training_params": {
+    "batch_size": 32,
+    "test_batch_size": 32,
+    "tdqm_disable": false
+  },
+  "early_stopping": {
+    "end_of_epoch_check": true,
+    "n_steps_stop": 25,
+    "save_every_valstep": 10,
+    "validate_every": 25
+  },
+  "optimizer": {
+    "type": "Adam",
+    "learning_rate": 0.00001,
+    "momentum": 0.9,
+    "weight_decay": 0.00001,
+    "beta1": 0.9,
+    "beta2": 0.999
+  },
+  "dataset": {
+      "norm": false,
+      "return_data" : {"video": true, "spectrogram":true, "audio":false, "face": false},
+      "sampling_rate": 22050,
+      "data_split": {
+        "fold": 0
+      }
+  },
+  "model": {
+    "model_class": "MCR_Model",
+    "args": {
+      "d_model": 512, "num_classes": 6, "fc_inner": 64, "dropout": 0.1,
+      "cls_type": "linear",
+      "clip_grad": false,
+      "batchnorm_features": false,
+      "shufflegradmulti": true,
+      "bias_infusion": {
+        "method": "ShuffleGradFinal",
+        "reg_by": "dist_pred_cub",
+        "num_samples": 6,
+        "l": 0.1,
+        "l_gradnorm": 0,
+        "shuffle": true,
+        "noise": false,
+        "starting_epoch": 0,
+        "ending_epoch": 1500,
+        "use": true,
+        "plot": false
+      },
+      "multi_loss": {
+        "multi_supervised_w": {
+             "combined": 1, "c": 1, "g": 1
+          }
+      }
+    },
+    "load_ongoing": false,
+    "save_dir": "MCR_{}.pth.tar",
+    "encoders": [
+      {
+        "model": "Audio_ResNet",
+        "args": { "d_model": 512, "num_classes": 6, "fc_inner": 64, "dropout": 0.1, "freeze_encoder": false},
+        "pretrainedEncoder": {"use": true, "dir": "unimodal_audio_fold{}.pth.tar"}
+      },
+      {
+        "model": "Video_ResNet",
+        "args": {"d_model": 512, "num_classes": 6, "fc_inner": 64, "dropout": 0.1, "freeze_encoder": false},
+        "pretrainedEncoder": {"use": true, "dir": "unimodal_images_fold{}.pth.tar"}
+      }
+    ]
+  }
+}

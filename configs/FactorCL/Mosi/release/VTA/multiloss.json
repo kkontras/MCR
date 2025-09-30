@@ -1,0 +1,64 @@
+{
+  "model": {
+    "model_class": "Base_3D_Model",
+    "args": {
+      "d_model": 40,
+      "num_classes": 1,
+      "fc_inner": 64,
+      "dropout": 0.1,
+      "cls_type": "linear",
+      "clip_grad": false,
+      "bias_infusion": {
+        "method": false
+      },
+    "multi_loss": {
+      "multi_supervised_w": {
+        "combined": 1, "c": 1, "g": 1, "f": 1
+      }
+    }
+    },
+    "load_ongoing": false,
+    "save_dir": "multiloss_{}.pth.tar",
+    "encoders": [
+      {
+        "model": "FactorCL_Uni",
+        "args": {
+          "n_features": 20,
+          "hidden_size": 40,
+          "modality": "c",
+          "num_classes": 1,
+          "freeze_encoder": false},
+        "pretrainedEncoder": {
+          "use": false,
+          "dir": "unimodal_video_{}.pth.tar"
+        }
+      },
+      {
+        "model": "FactorCL_Uni",
+        "args": {
+          "n_features": 300,
+          "hidden_size": 40,
+          "modality": "g",
+          "num_classes": 1,
+          "freeze_encoder": false},
+        "pretrainedEncoder": {
+          "use": false,
+          "dir": "unimodal_text_{}.pth.tar"
+        }
+      },
+      {
+        "model": "FactorCL_Uni",
+        "args": {
+          "n_features": 5,
+          "hidden_size": 40,
+          "modality": "f",
+          "num_classes": 1,
+          "freeze_encoder": false},
+        "pretrainedEncoder": {
+          "use": false,
+          "dir": "unimodal_audio_{}.pth.tar"
+        }
+      }
+    ]
+  }
+}

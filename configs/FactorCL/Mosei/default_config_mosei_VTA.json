@@ -1,0 +1,54 @@
+{
+  "exp_name": "Mosei Experiment",
+  "agent": "Agent",
+  "task": "regression",
+  "training_params": {
+    "cuda": true,
+    "gpu_device": [0],
+    "seed": 109,
+    "batch_size": 32,
+    "test_batch_size": 32,
+    "data_loader_workers": 8,
+    "pin_memory": true,
+    "async_loading": true,
+    "validation": true,
+    "rec_test": true,
+    "test_on_bottoms": false,
+    "use_test_set": true,
+    "verbose": true,
+    "adversarial_training": {
+      "use": false,
+      "adv_epsilon": 0.01
+    },
+    "tdqm_disable": true,
+    "wandb_disable": true,
+    "res": true
+  },
+  "scheduler": {"type":"cosanneal", "max_lr": 0.03, "warm_up_steps": 780},
+  "optimizer": {
+    "type": "Adam",
+    "learning_rate": 0.0001,
+    "momentum": 0.9,
+    "weight_decay": 0.0001,
+    "beta1": 0.9,
+    "beta2": 0.999
+  },
+  "early_stopping": {
+    "max_epoch": 100,
+    "end_of_epoch_check": true,
+    "log_interval": 10,
+    "save_every_step": 3000,
+    "validate_every": 185,
+    "save_every_valstep": 50,
+    "validate_after": 0,
+    "n_steps_stop": 30,
+    "n_steps_stop_after": 0
+  },
+  "dataset": {
+      "dataloader_class": "FactorCL_Dataloader",
+      "data_roots": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/FactorCL/mosei_senti_data.pkl"
+  },
+  "model": {
+    "save_base_dir": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/Balance_Final/MOSEI/VTA"
+  }
+}

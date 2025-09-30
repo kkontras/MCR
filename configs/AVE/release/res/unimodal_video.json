@@ -1,0 +1,72 @@
+{
+  "exp_name": "AVE Experiment",
+  "agent": "Agent",
+  "mode": "train",
+  "num_classes": 5,
+  "training_params": {
+    "cuda": true,
+    "gpu_device": [0],
+    "seed": 109,
+    "batch_size": 32,
+    "test_batch_size": 32,
+    "data_loader_workers": 8,
+    "pin_memory": true,
+    "async_loading": true,
+    "validation": true,
+    "rec_test": false,
+    "test_on_bottoms": false,
+    "use_test_set": true,
+    "verbose": true,
+    "adversarial_training": {
+      "use": false,
+      "adv_epsilon": 0.01
+    },
+    "tdqm_disable": false,
+    "wandb_disable": false,
+    "res": true
+  },
+  "scheduler": {"type":"cosanneal", "max_lr": 0.03, "warm_up_steps": 780},
+  "optimizer": {
+    "type": "Adam",
+    "learning_rate": 0.001,
+    "momentum": 0.9,
+    "weight_decay": 0.0001,
+    "beta1": 0.9,
+    "beta2": 0.999
+  },
+  "early_stopping": {
+    "max_epoch": 1000,
+    "end_of_epoch_check": true,
+    "log_interval": 10,
+    "save_every": 1,
+    "validate_every": 103,
+    "validate_after": 0,
+    "n_steps_stop": 100,
+    "n_steps_stop_after": 0,
+    "validate_with": "accuracy"
+  },
+  "dataset": {
+      "dataloader_class": "AVE_Dataloader",
+      "data_roots": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/AVE/AVE_Dataset",
+      "fps": 1,
+      "data_split": {},
+      "num_frame": 4
+  },
+  "model": {
+    "model_class": "Video_ResNet",
+    "args": {
+      "d_model": 512, "num_classes": 28,"fc_inner": 64, "dropout": 0.1,
+      "shared_pred": false,
+      "bias_infusion": {
+        "method": false
+      },
+      "multi_loss": {
+        "multi_supervised_w": {
+             "combined": 1
+          }
+      }
+    },
+    "load_ongoing": true,
+    "save_dir": "unimodal_video_{}.pth.tar"
+  }
+}

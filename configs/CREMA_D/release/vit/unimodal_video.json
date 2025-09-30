@@ -1,0 +1,41 @@
+{
+  "training_params": {
+    "seed": 109,
+    "batch_size": 8,
+    "tdqm_disable": false
+  },
+  "scheduler": {"type":"cosanneal", "max_lr": 0.001, "warm_up_steps": 1500},
+  "optimizer": {
+    "type": "Adam",
+    "learning_rate": 0.000001,
+    "momentum": 0.9,
+    "weight_decay":  5e-4,
+    "beta1": 0.95,
+    "beta2": 0.999
+  },
+  "dataset": {
+      "norm_wav_path": "./datasets/CREMAD/wav_norm_16000_v2_fold{}.pkl",
+      "norm_face_path": "./datasets/CREMAD/norm_face_path_v2_fold{}.pkl",
+      "return_data" : {"video": false, "spectrogram":false, "audio":false, "face": true},
+      "sampling_rate": 16000,
+      "data_split": {
+        "fold": 0
+      }
+  },
+  "model": {
+    "model_class": "Video_FacesConformer",
+    "args": {
+      "d_model": 512, "num_classes": 6, "fc_inner": 64,"dropout": 0.1,
+      "bias_infusion": {
+        "method": false
+      },
+      "multi_loss": {
+        "multi_supervised_w": {
+             "combined": 1
+          }
+      }
+    },
+    "load_ongoing": false,
+    "save_dir": "unimodal_video_{}.pth.tar"
+  }
+}

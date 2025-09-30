@@ -1,0 +1,52 @@
+{
+  "exp_name": "AVE Experiment",
+  "agent": "Agent",
+  "training_params": {
+    "cuda": true,
+    "gpu_device": [0],
+    "seed": 109,
+    "batch_size": 32,
+    "test_batch_size": 32,
+    "data_loader_workers": 0,
+    "pin_memory": true,
+    "async_loading": true,
+    "validation": true,
+    "rec_test": true,
+    "test_on_bottoms": false,
+    "use_test_set": true,
+    "verbose": true,
+    "tdqm_disable": true,
+    "wandb_disable": true,
+    "res": true
+  },
+  "scheduler": {"type":"cosanneal", "max_lr": 0.03, "warm_up_steps": 780},
+  "optimizer": {
+    "type": "Adam",
+    "learning_rate": 0.001,
+    "momentum": 0.9,
+    "weight_decay": 0.0001,
+    "beta1": 0.9,
+    "beta2": 0.999
+  },
+  "early_stopping": {
+    "max_epoch": 1500,
+    "end_of_epoch_check": true,
+    "log_interval": 10,
+    "save_every_valstep": 5,
+    "validate_every": 103,
+    "validate_after": 0,
+    "n_steps_stop": 150,
+    "n_steps_stop_after": 0,
+    "validate_with": "accuracy"
+  },
+  "dataset": {
+      "dataloader_class": "AVE_Dataloader",
+      "data_roots": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/AVE/AVE_Dataset",
+      "fps": 1,
+    "data_split": {},
+     "num_frame": 4
+  },
+  "model": {
+    "save_base_dir": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/Balance_Final/AVE/res"
+  }
+}

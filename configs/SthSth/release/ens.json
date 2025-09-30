@@ -1,0 +1,30 @@
+{
+  "early_stopping": {
+    "max_epoch": 0
+  },
+  "model": {
+    "model_class": "All2Model_Ens",
+    "args": {
+      "activate_model": {"layout": true, "flow": true, "video": true},
+      "pretraining_paths": {
+        "flow": "flow_test_kinetics_encoder_fold{}.pth.tar",
+        "video": "video_test_encoder_fold{}.pth.tar"
+      },
+      "clip_grad": true,
+      "clip_value": 5.0,
+      "d_model": 512,
+      "num_frames":16,
+      "num_classes": 174,
+      "bias_infusion": {
+        "method": false
+      },
+      "multi_loss": {
+        "multi_supervised_w": {
+             "combined": 1, "c": 1, "g": 1
+          }
+      }
+    },
+    "load_ongoing": true,
+    "save_dir": "ens_{}.pth.tar"
+  }
+}

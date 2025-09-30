@@ -1,0 +1,46 @@
+{
+  "training_params": {
+    "batch_size": 8,
+    "tdqm_disable": false
+  },
+  "dataset": {
+    "norm_wav_path": "./datasets/CREMAD/wav_norm_16000_fold{}.pkl",
+      "norm_face_path": "./datasets/CREMAD/norm_face_path_fold{}.pkl",
+      "return_data" : {"video": false, "spectrogram":false, "audio":true, "face": true},
+      "sampling_rate": 16000,
+      "data_split": {
+        "fold": 0
+      }
+  },
+  "model": {
+    "model_class": "Base_Model",
+    "args": {
+      "d_model": 512, "num_classes": 6, "fc_inner": 64, "dropout": 0.1,
+      "shared_pred": true,
+      "cls_type": "linear",
+      "mmcosine": true,
+      "mmcosine_scaling": 10,
+      "bias_infusion": {
+        "method": false
+      },
+      "multi_loss": {
+        "multi_supervised_w": {
+             "combined": 1, "c": 0, "g": 0
+          }
+      }
+    },
+    "load_ongoing": false,
+    "save_dir": "MMCosine_{}.pth.tar",
+    "encoders": [
+      {
+        "model": "Audio_Wav2Vec",
+        "args": { "d_model": 512, "num_classes": 6, "fc_inner": 64, "dropout": 0.1},
+        "pretrainedEncoder": {"use": false, "dir": "unimodal_audio_fold0_lr0.00005_wd5e-6.pth.tar"}
+      },
+      {
+        "model": "Video_FacesConformer",
+        "args": {"d_model": 512, "num_classes": 6, "fc_inner": 64, "dropout": 0.1},
+        "pretrainedEncoder": {"use": false, "dir": "unimodal_video_fold0_lr0.00005_wd5e-6_fold0.pth.tar"}}
+    ]
+  }
+}

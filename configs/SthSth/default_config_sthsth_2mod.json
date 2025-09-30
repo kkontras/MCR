@@ -1,0 +1,89 @@
+{
+  "exp_name": "Kinetics Experiment",
+  "agent": "Agent",
+  "training_params": {
+    "cuda": true,
+    "gpu_device": [0],
+    "seed": 109,
+    "batch_size": 16,
+    "test_batch_size": 16,
+    "data_loader_workers": 0,
+    "pin_memory": true,
+    "async_loading": true,
+    "validation": true,
+    "rec_test": false,
+    "test_on_bottoms": false,
+    "use_test_set": true,
+    "verbose": true,
+    "adversarial_training": {
+      "use": false,
+      "adv_epsilon": 0.01
+    },
+    "tdqm_disable": false,
+    "wandb_disable": false,
+    "res": true
+  },
+  "scheduler": {"type":"cosanneal", "max_lr": 0.03, "warm_up_steps": 31655},
+  "optimizer": {
+    "type": "Adaw",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.02
+  },
+  "early_stopping": {
+    "max_epoch": 30,
+    "end_of_epoch_check": true,
+    "log_interval": 10,
+    "save_every_valstep": 1,
+    "save_every_step": 6000,
+    "validate_every": 500,
+    "validate_after": 0,
+    "n_steps_stop": 100,
+    "n_steps_stop_after": 0,
+    "validate_with": "accuracy"
+  },
+  "dataset": {
+      "dataloader_class": "SthSth_VideoLayoutFlow",
+      "pad_audio": 509,
+      "model_name":"All3Model",
+      "num_test_clips":1,
+      "num_test_crops":1,
+      "stride":8,
+      "frame_uniform": true,
+      "num_frames":16,
+      "augmentations": {"layout": ["IdentityTransform"], "flow": ["VideoResize", "VideoRandomCrop"], "video": ["VideoResize", "VideoRandomCrop", "VideoColorJitter"]},
+      "modalities":{
+          "layout":{
+            "dataset_type": "layout",
+            "activate": false,
+            "train_dataset_name": "something-something",
+            "val_dataset_name": "something-something",
+            "train_dataset_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/train_dataset_flow_aligned.json",
+            "val_dataset_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/val_dataset_flow_aligned.json",
+            "labels_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something-something-v2-labels.json"
+          },
+          "flow": {
+            "dataset_type": "flow",
+            "activate": true,
+            "train_dataset_name": "something-something",
+            "val_dataset_name": "something-something",
+            "train_dataset_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/train_dataset_flow_aligned.json",
+            "val_dataset_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/val_dataset_flow_aligned.json",
+            "labels_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something-something-v2-labels.json",
+            "flow_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/flow_dataset.hdf5"
+          },
+          "video": {
+            "dataset_type": "video",
+            "activate": true,
+            "train_dataset_name": "something-something",
+            "val_dataset_name": "something-something",
+            "train_dataset_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/train_dataset_flow_aligned.json",
+            "val_dataset_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/val_dataset_flow_aligned.json",
+            "labels_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something-something-v2-labels.json",
+            "videos_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/dataset.hdf5"
+          }
+      }
+  },
+  "model":{
+      "save_base_dir": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/Balance_Final/SthSth/"
+}
+}

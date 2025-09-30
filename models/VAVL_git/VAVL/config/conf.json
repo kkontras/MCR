@@ -1,0 +1,8 @@
+{
+    "config_root": "config/config_files",
+    "MSP-IMPROV_four_primary": "improv/four.json",
+    "MSP-IMPROV_att_primary": "improv/att.json",
+    "MSP-IMPROV_ALL_secondary": "improv/ten.json",
+    "CREMA-D_ALL_primary": "crema-d/six.json",
+    "RAVDESS_eight_primary": "ravdess/eight.json"
+}

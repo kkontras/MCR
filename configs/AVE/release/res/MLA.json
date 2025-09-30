@@ -1,0 +1,39 @@
+{
+  "model": {
+    "model_class": "MLA_Model",
+    "args": {
+      "d_model": 512, "num_classes": 28, "fc_inner": 64, "dropout": 0.1,
+      "shared_pred": true,
+      "cls_type": "linear",
+      "mmcosine": true,
+      "mmcosine_scaling": 10,
+      "bias_infusion": {
+        "method": "MLA",
+        "alpha": 0.8,
+        "dynamic": true,
+        "starting_epoch": 0,
+        "ending_epoch": 1500,
+        "use": true,
+        "plot": false
+      },
+      "multi_loss": {
+        "multi_supervised_w": {
+             "combined": 1, "c": 1, "g": 1
+          }
+      }
+    },
+    "encoders": [
+      {
+        "model": "Audio_ResNet",
+        "args": { "d_model": 512, "num_classes": 28, "fc_inner": 64, "dropout": 0.1, "freeze_encoder": false},
+        "pretrainedEncoder": {"use": false, "dir": ""}
+      },
+      {
+        "model": "Video_ResNet",
+        "args": {"d_model": 512, "num_classes": 28, "fc_inner": 64, "dropout": 0.1, "freeze_encoder": false},
+        "pretrainedEncoder": {"use": false, "dir": ""}}
+    ],
+    "load_ongoing": false,
+    "save_dir": "MLA_{}.pth.tar"
+  }
+}

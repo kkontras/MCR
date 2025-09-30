@@ -1,0 +1,29 @@
+{
+  "model": {
+    "model_class": "All2Model_OGM",
+    "args": {
+      "activate_model": {"flow": true, "video": true},
+      "swin_backbone": "swin_pretraining_kinetikcs400_1k.pth",
+      "clip_grad": true,
+      "clip_value": 5.0,
+      "d_model": 512,
+      "num_frames":16,
+      "num_classes": 174,
+      "bias_infusion": {
+        "method": "MMPareto",
+        "alpha": 1.5,
+        "starting_epoch": 0,
+        "ending_epoch": 1500,
+        "use": true,
+        "plot": false
+      },
+      "multi_loss": {
+        "multi_supervised_w": {
+            "combined": 1, "c": 1, "g": 1
+          }
+      }
+    },
+    "load_ongoing": true,
+    "save_dir": "MMPareto_{}.pth.tar"
+  }
+}

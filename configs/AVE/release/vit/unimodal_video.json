@@ -1,0 +1,32 @@
+{
+  "training_params": {
+    "batch_size": 8,
+    "test_batch_size": 8,
+    "tdqm_disable": true
+  },
+  "scheduler": {"type":"cosanneal", "max_lr": 0.03, "warm_up_steps": 780},
+  "optimizer": {
+    "type": "Adam",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001
+  },
+  "dataset": {"return_data": {"video": true, "spectrogram": false, "audio":false},"num_frame": 10},
+  "model": {
+    "model_class": "Video_ViViT",
+    "args": {
+      "d_model": 768,
+      "num_classes": 28,"pretrained": true, "num_frame": 10,
+      "shared_pred": false,
+      "bias_infusion": {
+        "method": false
+      },
+      "multi_loss": {
+        "multi_supervised_w": {
+             "combined": 1
+          }
+      }
+    },
+    "load_ongoing": false,
+    "save_dir": "unimodal_video_{}.pth.tar"
+  }
+}

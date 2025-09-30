@@ -1,0 +1,38 @@
+{
+  "dataset": {"return_data": {"video": true, "spectrogram": false, "audio":true},"num_frame": 10},
+  "model": {
+    "model_class": "Base_Model",
+    "args": {
+      "d_model": 768, "num_classes": 28, "fc_inner": 64, "dropout": 0.1,
+      "shared_pred": true,
+      "cls_type": "linear",
+      "clip_grad": false,
+      "bias_infusion": {
+        "method": "MMPareto",
+        "alpha": 1.5,
+        "starting_epoch": 0,
+        "ending_epoch": 1500,
+        "use": true,
+        "plot": false
+      },
+      "multi_loss": {
+        "multi_supervised_w": {
+             "combined": 1, "c": 1, "g": 1
+          }
+      }
+    },
+    "load_ongoing": false,
+    "save_dir": "MMPareto_{}.pth.tar",
+    "encoders": [
+      {
+        "model": "Audio_HubertAudioset",
+        "args": { "d_model": 768, "num_classes": 28, "fc_inner": 64, "dropout": 0.1, "freeze_encoder": false},
+        "pretrainedEncoder": {"use": false, "dir": "unimodal_audio_AudioSets_fold{}_lr0.0001_wd0.0001.pth.tar"}
+      },
+      {
+        "model": "Video_ViViT",
+        "args": {"d_model": 768, "num_classes": 28, "pretrained": true, "num_frame": 10, "freeze_encoder": false},
+        "pretrainedEncoder": {"use": false, "dir": "images_linearcls_previvit_10frames_fold{}_lr0.0001_wd0.0001.pth.tar"}}
+    ]
+  }
+}

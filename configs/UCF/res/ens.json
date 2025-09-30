@@ -1,0 +1,35 @@
+{
+  "early_stopping": {
+    "max_epoch": 0
+  },
+  "model": {
+    "model_class": "Base_Ensemble_Model",
+    "args": {
+      "d_model": 512, "num_classes": 51, "fc_inner": 64, "dropout": 0.1,
+      "shared_pred": true,
+      "cls_type": "dec",
+      "clip_grad": false,
+      "bias_infusion": {
+        "method": false
+      },
+      "multi_loss": {
+        "multi_supervised_w": {
+             "combined": 1, "c": 0, "g": 0
+          }
+      }
+    },
+    "load_ongoing": false,
+    "save_dir": "ens_{}.pth.tar",
+    "encoders": [
+      {
+        "model": "Audio_ResNet",
+        "args": { "d_model": 512, "num_classes": 51, "fc_inner": 64, "dropout": 0.1, "freeze_encoder": true},
+        "pretrainedEncoder": {"use": true, "dir": "unimodal_audio_fold{}.pth.tar"}
+      },
+      {
+        "model": "Video_ResNet",
+        "args": {"d_model": 512, "num_classes": 51, "fc_inner": 64, "dropout": 0.1, "freeze_encoder": true},
+        "pretrainedEncoder": {"use": true, "dir": "unimodal_video_fold{}.pth.tar"}}
+    ]
+  }
+}

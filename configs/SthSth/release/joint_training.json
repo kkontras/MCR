@@ -1,0 +1,24 @@
+{
+  "model": {
+    "model_class": "All2Model_OGM",
+    "args": {
+      "activate_model": {"flow": true, "video": true},
+      "swin_backbone": "swin_pretraining_kinetikcs400_1k.pth",
+      "clip_grad": true,
+      "clip_value": 5.0,
+      "d_model": 512,
+      "num_frames":16,
+      "num_classes": 174,
+      "bias_infusion": {
+        "method": false
+      },
+      "multi_loss": {
+        "multi_supervised_w": {
+             "combined": 1
+          }
+      }
+    },
+    "load_ongoing": true,
+    "save_dir": "jointtraining_{}.pth.tar"
+  }
+}

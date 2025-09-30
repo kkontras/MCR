@@ -1,0 +1,62 @@
+{
+  "training_params": {
+    "seed": 109,
+    "batch_size": 8,
+    "tdqm_disable": false
+  },
+  "early_stopping": {
+    "max_epoch": 0
+  },
+  "scheduler": {"type":"cosanneal", "max_lr": 0.001, "warm_up_steps": 1500},
+  "optimizer": {
+    "type": "Adam",
+    "learning_rate": 0.000001,
+    "momentum": 0.9,
+    "weight_decay":  5e-4,
+    "beta1": 0.95,
+    "beta2": 0.999
+  },
+  "dataset": {
+      "norm_wav_path": "./datasets/CREMAD/wav_norm_16000_fold{}.pkl",
+      "norm_face_path": "./datasets/CREMAD/norm_face_path_fold{}.pkl",
+      "return_data" : {"video": false, "spectrogram":false, "audio":true, "face": true},
+      "sampling_rate": 16000,
+      "data_split": {
+        "fold": 0
+      }
+  },
+
+  "model": {
+    "model_class": "Base_Ensemble_Model",
+    "args": {
+      "d_model": 512,
+      "num_classes": 6,
+      "fc_inner": 64,
+      "dropout": 0.1,
+      "shared_pred": true,
+      "cls_type": "linear",
+      "norm_decision": "standardization",
+      "bias_infusion": {
+        "method": false
+      },
+      "multi_loss": {
+        "multi_supervised_w": {
+             "combined": 1, "c": 0, "g": 0
+          }
+      }
+    },
+    "load_ongoing": false,
+    "save_dir": "ens_{}.pth.tar",
+    "encoders": [
+      {
+        "model": "AClassifier_Noconformer_linearcls",
+        "args": { "d_model": 512, "num_classes": 6, "fc_inner": 64, "dropout": 0.1},
+        "pretrainedEncoder": {"use": true, "dir": "unimodal_audio_fold{}_lr0.00005_wd5e-6.pth.tar"}
+      },
+      {
+        "model": "VClassifier_Faces_linearcls",
+        "args": {"d_model": 512, "num_classes": 6, "fc_inner": 64, "dropout": 0.1},
+        "pretrainedEncoder": {"use": true, "dir": "unimodal_video_fold{}_lr0.00005_wd5e-6.pth.tar"}}
+    ]
+  }
+}

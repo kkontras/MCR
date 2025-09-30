@@ -1,0 +1,24 @@
+{
+  "model": {
+    "model_class": "FactorCL_Uni",
+    "args": {
+      "n_features": 35,
+      "hidden_size": 40,
+      "modality": "c",
+      "num_classes": 1,
+      "clip_grad": false,
+      "bias_infusion": {
+        "method": false
+      },
+    "multi_loss": {
+      "multi_supervised_w": {
+        "combined": 1,
+        "c": 0,
+        "g": 0
+      }
+    }
+    },
+    "load_ongoing": false,
+    "save_dir": "unimodal_video_{}.pth.tar"
+  }
+}
