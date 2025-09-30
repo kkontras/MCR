@@ -41,20 +41,11 @@ class SwinModel(nn.Module):
                     name = k[9:]
                     new_state_dict[name] = v
             self.backbone.load_state_dict(new_state_dict)
-        # Build classifier
-        # actions = {"action": self.cfg.num_classes}
-        # self.classifiers = nn.ModuleDict(
-        #     {
-        #         actions_name: nn.Linear(768, actions_num)
-        #         for actions_name, actions_num in actions.items()
-        #         if actions_num is not None
-        #     }
-        # )
+
 
         self.classifiers = nn.ModuleDict({"ACTION": nn.Linear(768, self.args.num_classes)})
         self.modality = self.get_modality()
 
-        # Load existing checkpoint, if any
         if checkpoint:
             logging.info(f"Loading model checkpoint from {checkpoint}")
             ch = torch.load(checkpoint, map_location="cpu")
@@ -110,7 +101,6 @@ class SwinModel(nn.Module):
         if return_features:
             output["features"] = {"combined": features}
 
-            # return output, features
         return output
 
 
@@ -175,10 +165,6 @@ class All3Model(nn.Module):
                     self.classifier = nn.Sequential(nn.BatchNorm1d(768 * 2), nn.Linear(768 * 2, 174))
                 else:
                     self.classifier = nn.Linear(768 * 2, 174)
-
-        # if cfg.CHECKPOINT_PATH:
-        #     print("We are loading from {}".format(cfg.CHECKPOINT_PATH))
-        #     self.load_state_dict(torch.load(cfg.CHECKPOINT_PATH, map_location="cpu"))
 
     def forward(self, batch: Dict[str, torch.Tensor], return_features: bool = False, **kwargs):
 
