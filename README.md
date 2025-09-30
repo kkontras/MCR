@@ -8,6 +8,7 @@ Official implementation of the paper
 #### Accepted as a **_Spotlight at NeurIPS 2025_**
 
 </div>
+
 ---
 
 [![NeurIPS 2025](https://img.shields.io/badge/NeurIPS-2025%20Spotlight-brightgreen)](https://nips.cc/)
