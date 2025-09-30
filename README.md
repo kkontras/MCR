@@ -1,7 +1,7 @@
 
 <div align="center">
 
-# Multimodal Competition Regularizer (MCR) <br><br>
+# Multimodal Competition Regularizer (MCR) <br>
 
 Official implementation of the paper  
 
