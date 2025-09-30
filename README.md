@@ -2,7 +2,7 @@
 
 > This repository contains the official implementation for the paper:
 > ### **_Balancing Multimodal Training Through Game-Theoretic Regularization_** 
-> ### **_Accepted as a Spotlight at NeurIPS 2025_** 
+> #### **_Accepted as a Spotlight at NeurIPS 2025_**
 
 ---
 
