@@ -60,8 +60,8 @@ def extract_audio(videos_file_path):
 #         #os.system('ffmpeg -i {} -acodec pcm_s16le -ar 16000 {}'.format(mp4_filename, wav_filename))
 
 
-all_videos = r"/esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/2023_data/AVE/AVE_Dataset/Annotations.txt"
-all_audio_dir = r"/esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/2023_data/AVE/AVE_Dataset/Audios"
+all_videos = r"project_default_directory/data/2023_data/AVE/AVE_Dataset/Annotations.txt"
+all_audio_dir = r"project_default_directory/data/2023_data/AVE/AVE_Dataset/Audios"
 if not os.path.exists(all_audio_dir):
     os.makedirs(all_audio_dir)
 
@@ -76,7 +76,7 @@ for i, item in enumerate(files[1:]):
         print("*******************************************")
     item = item.split("&")
     mp4_filename = os.path.join(
-        r"/esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/2023_data/AVE/AVE_Dataset/AVE",
+        r"project_default_directory/data/2023_data/AVE/AVE_Dataset/AVE",
         item[1] + ".mp4",
     )
     wav_filename = os.path.join(all_audio_dir, item[1] + ".wav")

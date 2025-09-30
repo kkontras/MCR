@@ -45,7 +45,7 @@ def extract_frames_and_audio(video_paths, labels, num):
     }
 
 
-data_roots = "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/UCF"
+data_roots = "project_default_directory/UCF"
 
 annotation_folder = os.path.join(data_roots, "Split_kkontras")
 annotation_train = os.path.join(annotation_folder, "trainlist01.txt")

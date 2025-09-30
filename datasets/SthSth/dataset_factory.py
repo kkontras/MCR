@@ -157,7 +157,7 @@ class VideoLayoutFlow(Dataset):
         if self.config.dataset.modalities.layout.activate:
 
             # lay_cfg = get_cfg_defaults()
-            # lay_cfg.merge_from_file("/esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/2023_data/SthSth/gorjan_experiments/unimodal_layout/config.yaml")
+            # lay_cfg.merge_from_file("project_default_directory/data/2023_data/SthSth/gorjan_experiments/unimodal_layout/config.yaml")
             lay_cfg = CN()
             lay_cfg.defrost()
             lay_cfg.DATASET_TYPE = self.config.dataset.modalities.layout.dataset_type

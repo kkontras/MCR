@@ -3,17 +3,17 @@ ACTION_WEIGHTS:
 LOG_TO_FILE: True
 BATCH_SIZE: 32
 DATASET_TYPE: video
-VIDEOS_PATH: /esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/dataset.hdf5
-EXPERIMENT_PATH: /esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/2023_data/something-something-detections
-LABELS_PATH: /esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something-something-v2-labels.json
+VIDEOS_PATH: project_default_directory/Sth-Sth/dataset.hdf5
+EXPERIMENT_PATH: project_default_directory/data/2023_data/something-something-detections
+LABELS_PATH: project_default_directory/Sth-Sth/something-something-v2-labels.json
 LOG_TO_FILE: False
 MODEL_NAME: swin
 TOTAL_ACTIONS:
   ACTION: 174
 TRAIN_DATASET_NAME: something-something
 VAL_DATASET_NAME: something-something
-TRAIN_DATASET_PATH: /esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/train_dataset.json
-VAL_DATASET_PATH: /esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/val_dataset.json
+TRAIN_DATASET_PATH: project_default_directory/Sth-Sth/something_something_detections/train_dataset.json
+VAL_DATASET_PATH: project_default_directory/Sth-Sth/something_something_detections/val_dataset.json
 BATCH_SIZE: 128
 FRAME_UNIFORM: True
 NUM_FRAMES: 16

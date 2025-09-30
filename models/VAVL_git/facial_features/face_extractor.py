@@ -22,7 +22,7 @@ from models.VAVL_git.facial_features.utils.FaceVideoDataModule import TestFaceVi
 
 
 def main():
-    root = "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/CremaD/CREMA-D_v2/"
+    root = "project_default_directory/CremaD/CREMA-D_v2/"
 
     file_format = ".flv"
 

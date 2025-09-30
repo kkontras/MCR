@@ -695,15 +695,15 @@ class CramedD_Dataloader:
         return train_dataset, valid_dataset, test_dataset
 
 
-# a = CremadDataset(config = {}, visual_path = "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/CremaD/CREMA-D",
-#                   audio_path="/esat/smcdata/users/kkontras/Image_Dataset/no_backup/CremaD/CREMA-D/AudioWAV", fps=1, mode="train")
+# a = CremadDataset(config = {}, visual_path = "project_default_directory/CremaD/CREMA-D",
+#                   audio_path="project_default_directory/CremaD/CREMA-D/AudioWAV", fps=1, mode="train")
 # b = a.__getitem__(0)
 # import matplotlib.pyplot as plt
 # import einops
 # plt.imshow(einops.rearrange(b["data"][1][0],"a b c -> b c a").squee
 
 
-# save_dir = "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/2023_data/CREMAD_models/unimodal_audio_VAVL_linearcls_fold0.pth.tar"
+# save_dir = "project_default_directory/data/2023_data/CREMAD_models/unimodal_audio_VAVL_linearcls_fold0.pth.tar"
 # checkpoint = torch.load(save_dir, map_location="cpu")
 # new_checkpoint = {}
 # new_checkpoint["logs"] = checkpoint["logs"]
@@ -715,7 +715,7 @@ class CramedD_Dataloader:
 # new_model_state_dict = {".".join(i.split(".")[1:]):checkpoint["model_state_dict"][i]  for i in checkpoint["model_state_dict"]}
 # new_checkpoint["best_model_state_dict"] = new_best_model_state_dict
 # new_checkpoint["model_state_dict"] = new_model_state_dict
-# new_save_dir = '/esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/2023_data/CREMAD_models/unimodal_audio_VAVL_linearcls_nm_fold0.pth.tar'
+# new_save_dir = 'project_default_directory/data/2023_data/CREMAD_models/unimodal_audio_VAVL_linearcls_nm_fold0.pth.tar'
 # torch.save(new_checkpoint, new_save_dir)
 
 # check if two lists contain any same elements

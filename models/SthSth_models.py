@@ -1660,8 +1660,8 @@ class Video_Layout_Model_Ens(nn.Module):
         super(Video_Layout_Model_Ens, self).__init__()
         self.cfg = copy.deepcopy(cfg)
 
-        # self.cfg.TRAIN_DATASET_PATH = "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/kkontras_flow_train.json"
-        # self.cfg.VAL_DATASET_PATH = "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/kkontras_flow_val.json"
+        # self.cfg.TRAIN_DATASET_PATH = "project_default_directory/Sth-Sth/something_something_detections/kkontras_flow_train.json"
+        # self.cfg.VAL_DATASET_PATH = "project_default_directory/Sth-Sth/something_something_detections/kkontras_flow_val.json"
         cfg_video = copy.deepcopy(cfg)
         cfg_video.defrost()
         cfg_video.CHECKPOINT_PATH = cfg.VIDEO_PRETRAINED_PATH if "VIDEO_PRETRAINED_PATH" in cfg else None

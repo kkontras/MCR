@@ -232,6 +232,6 @@ class AVE_dataset(object):
                 pickle.dump(spectrogram, fid)
 
 
-ave = AVE_dataset(path_to_dataset="/esat/smcdata/users/kkontras/Image_Dataset/no_backup/AVE/AVE_Dataset")
+ave = AVE_dataset(path_to_dataset="project_default_directory/AVE/AVE_Dataset")
 # ave.extractImage_SE()
 ave.extractWav_SE()

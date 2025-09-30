@@ -79,7 +79,7 @@ class videoReader(object):
 class CRAMED_dataset(object):
     def __init__(
         self,
-        path_to_dataset="/esat/smcdata/users/kkontras/Image_Dataset/no_backup/CremaD/CREMA-D",
+        path_to_dataset="project_default_directory/CremaD/CREMA-D",
         frame_interval=1,
         frame_kept_per_second=1,
     ):
@@ -157,14 +157,14 @@ class CRAMED_dataset(object):
 #
 # # Example usage:
 # num_splits = 10
-# all_names = np.unique(np.array([ i.split("_")[0] for i in os.listdir("/esat/smcdata/users/kkontras/Image_Dataset/no_backup/CremaD/CREMA-D/AudioWAV") ]))
+# all_names = np.unique(np.array([ i.split("_")[0] for i in os.listdir("project_default_directory/CremaD/CREMA-D/AudioWAV") ]))
 # folds = random_split_list(all_names, num_splits)
 # print(folds.keys())
 # for f in folds:
 #     for set in folds[f]:
 #         this_set_list = []
 #         for name in folds[f][set]:
-#             for i in os.listdir("/esat/smcdata/users/kkontras/Image_Dataset/no_backup/CremaD/CREMA-D/VideoFlash"):
+#             for i in os.listdir("project_default_directory/CremaD/CREMA-D/VideoFlash"):
 #                 if name in i: this_set_list.append(i)
 #         folds[f][set] = this_set_list
 #

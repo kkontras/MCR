@@ -41,12 +41,12 @@
   },
   "dataset": {
       "dataloader_class": "AVE_Dataloader",
-      "data_roots": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/AVE/AVE_Dataset",
+      "data_roots": "project_default_directory/AVE/AVE_Dataset",
       "fps": 1,
     "data_split": {},
      "num_frame": 4
   },
   "model": {
-    "save_base_dir": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/Balance_Final/AVE/res"
+    "save_base_dir": "project_default_directory/data/Balance_Final/AVE/res"
   }
 }

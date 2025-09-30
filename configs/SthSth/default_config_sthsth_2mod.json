@@ -57,33 +57,33 @@
             "activate": false,
             "train_dataset_name": "something-something",
             "val_dataset_name": "something-something",
-            "train_dataset_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/train_dataset_flow_aligned.json",
-            "val_dataset_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/val_dataset_flow_aligned.json",
-            "labels_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something-something-v2-labels.json"
+            "train_dataset_path": "project_default_directory/Sth-Sth/something_something_detections/train_dataset_flow_aligned.json",
+            "val_dataset_path": "project_default_directory/Sth-Sth/something_something_detections/val_dataset_flow_aligned.json",
+            "labels_path": "project_default_directory/Sth-Sth/something-something-v2-labels.json"
           },
           "flow": {
             "dataset_type": "flow",
             "activate": true,
             "train_dataset_name": "something-something",
             "val_dataset_name": "something-something",
-            "train_dataset_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/train_dataset_flow_aligned.json",
-            "val_dataset_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/val_dataset_flow_aligned.json",
-            "labels_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something-something-v2-labels.json",
-            "flow_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/flow_dataset.hdf5"
+            "train_dataset_path": "project_default_directory/Sth-Sth/something_something_detections/train_dataset_flow_aligned.json",
+            "val_dataset_path": "project_default_directory/Sth-Sth/something_something_detections/val_dataset_flow_aligned.json",
+            "labels_path": "project_default_directory/Sth-Sth/something-something-v2-labels.json",
+            "flow_path": "project_default_directory/Sth-Sth/flow_dataset.hdf5"
           },
           "video": {
             "dataset_type": "video",
             "activate": true,
             "train_dataset_name": "something-something",
             "val_dataset_name": "something-something",
-            "train_dataset_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/train_dataset_flow_aligned.json",
-            "val_dataset_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/val_dataset_flow_aligned.json",
-            "labels_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something-something-v2-labels.json",
-            "videos_path": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/dataset.hdf5"
+            "train_dataset_path": "project_default_directory/Sth-Sth/something_something_detections/train_dataset_flow_aligned.json",
+            "val_dataset_path": "project_default_directory/Sth-Sth/something_something_detections/val_dataset_flow_aligned.json",
+            "labels_path": "project_default_directory/Sth-Sth/something-something-v2-labels.json",
+            "videos_path": "project_default_directory/Sth-Sth/dataset.hdf5"
           }
       }
   },
   "model":{
-      "save_base_dir": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/Balance_Final/SthSth/"
+      "save_base_dir": "project_default_directory/data/Balance_Final/SthSth/"
 }
 }

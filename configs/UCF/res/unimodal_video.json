@@ -47,7 +47,7 @@
   },
   "dataset": {
       "dataloader_class": "UCF_Dataloader",
-      "data_roots": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/UCF",
+      "data_roots": "project_default_directory/UCF",
       "fps": 1,
       "num_frame": 4,
       "fold": 1
@@ -64,6 +64,6 @@
       }
     },
     "load_ongoing": false,
-    "save_dir": "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/data/Balance_Final/UCF/res/unimodal_video_{}.pth.tar"
+    "save_dir": "project_default_directory/data/Balance_Final/UCF/res/unimodal_video_{}.pth.tar"
   }
 }

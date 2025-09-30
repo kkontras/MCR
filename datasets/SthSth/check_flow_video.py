@@ -1,10 +1,10 @@
 import json
 
-# flow_dataset = json.load(open("/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_flow/something-something-v2-train.json"))
-# video_dataset = json.load(open("/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/train_dataset.json"))
+# flow_dataset = json.load(open("project_default_directory/Sth-Sth/something_something_flow/something-something-v2-train.json"))
+# video_dataset = json.load(open("project_default_directory/Sth-Sth/something_something_detections/train_dataset.json"))
 #
-# # flow_dataset = json.load(open("/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/val_dataset_flow_aligned.json"))
-# # video_dataset = json.load(open("/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/val_dataset.json"))
+# # flow_dataset = json.load(open("project_default_directory/Sth-Sth/something_something_detections/val_dataset_flow_aligned.json"))
+# # video_dataset = json.load(open("project_default_directory/Sth-Sth/something_something_detections/val_dataset.json"))
 # #
 # # Extract ids from each list
 # ids_list1 = {d["id"] for d in flow_dataset}
@@ -21,27 +21,27 @@ import json
 # print("Common elements in list2:", len(common_elements_list2))
 #
 # json.dump(common_elements_list1, open(
-#     "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/kkontras_flow_train.json",
+#     "project_default_directory/Sth-Sth/something_something_detections/kkontras_flow_train.json",
 #     "w"))
 # json.dump(common_elements_list2, open(
-#     "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/kkontras_video_train.json",
+#     "project_default_directory/Sth-Sth/something_something_detections/kkontras_video_train.json",
 #     "w"))
 
 # json.dump(common_elements_list1, open(
-#     "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/kkontras_flow_val.json",
+#     "project_default_directory/Sth-Sth/something_something_detections/kkontras_flow_val.json",
 #     "w"))
 # json.dump(common_elements_list2, open(
-#     "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/kkontras_video_val.json",
+#     "project_default_directory/Sth-Sth/something_something_detections/kkontras_video_val.json",
 #     "w"))
 
-flow_dataset = json.load(open("/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/kkontras_flow_train.json"))
-video_dataset = json.load(open("/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/kkontras_video_train.json"))
+flow_dataset = json.load(open("project_default_directory/Sth-Sth/something_something_detections/kkontras_flow_train.json"))
+video_dataset = json.load(open("project_default_directory/Sth-Sth/something_something_detections/kkontras_video_train.json"))
 #
-# flow_dataset = json.load(open("/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/kkontras_flow_val.json"))
-# video_dataset = json.load(open("/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/something_something_detections/kkontras_video_val.json"))
+# flow_dataset = json.load(open("project_default_directory/Sth-Sth/something_something_detections/kkontras_flow_val.json"))
+# video_dataset = json.load(open("project_default_directory/Sth-Sth/something_something_detections/kkontras_video_val.json"))
 #
-flow_resource_path = "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/flow_dataset.hdf5"
-video_resource_path = "/esat/smcdata/users/kkontras/Image_Dataset/no_backup/Sth-Sth/dataset.hdf5"
+flow_resource_path = "project_default_directory/Sth-Sth/flow_dataset.hdf5"
+video_resource_path = "project_default_directory/Sth-Sth/dataset.hdf5"
 
 import h5py
 
