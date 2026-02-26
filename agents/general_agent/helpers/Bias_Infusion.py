@@ -2421,15 +2421,15 @@ class Bias_Infusion_MCR(General_Bias_Infusion):
 
         l = self.l
 
-        if self.reg_by == "dist_pred_cjsd":
+        if self.reg_by == "greedy":
             reg_term = self.l * (-pert_loss["enc0_p0_pred"] + pert_loss["enc1_p0_pred"] - pert_loss["enc1_p1_pred"] + pert_loss["enc0_p1_pred"])
             reg_term_0 = pert_loss["enc0_p0_pred"]
             reg_term_1 = pert_loss["enc1_p1_pred"]
-        elif self.reg_by == "dist_pred_max_cjsd":
+        elif self.reg_by == "ind":
             reg_term = self.l * (-pert_loss["enc0_p0_pred"] - pert_loss["enc1_p1_pred"])
             reg_term_0 = pert_loss["enc0_p0_pred"]
             reg_term_1 = pert_loss["enc1_p1_pred"]
-        elif self.reg_by == "dist_pred_all_max_cjsd":
+        elif self.reg_by == "colab":
             reg_term_0 = pert_loss["all_p0_pred"]
             reg_term_1 = pert_loss["all_p1_pred"]
             reg_term = self.l * (-reg_term_0 - reg_term_1)
@@ -2846,7 +2846,7 @@ class Bias_Infusion_MCR3D(General_Bias_Infusion):
 
         pert_loss = self.get_perturbed_gradients(output)
 
-        if self.reg_by == "dist_pred_cjsd":
+        if self.reg_by == "greedy":
             reg_term_0 = pert_loss["enc0_p0_pred"] + pert_loss["enc0_p01_pred"] + pert_loss["enc0_p02_pred"]
             reg_term_1 = pert_loss["enc1_p1_pred"] + pert_loss["enc1_p01_pred"] + pert_loss["enc1_p12_pred"]
             reg_term_2 = pert_loss["enc2_p2_pred"] + pert_loss["enc2_p12_pred"] + pert_loss["enc2_p02_pred"]
@@ -2855,13 +2855,13 @@ class Bias_Infusion_MCR3D(General_Bias_Infusion):
             reg_term_2_min = pert_loss["enc2_p1_pred"] + pert_loss["enc2_p0_pred"] + pert_loss["enc2_p01_pred"]
             reg_term = self.l * (-reg_term_0 - reg_term_1 - reg_term_2 + reg_term_0_min + reg_term_1_min + reg_term_2_min)
 
-        elif self.reg_by == "dist_pred_max_cjsd":
+        elif self.reg_by == "ind":
             reg_term_0 = pert_loss["enc0_p0_pred"] + pert_loss["enc0_p01_pred"] + pert_loss["enc0_p02_pred"]
             reg_term_1 = pert_loss["enc1_p1_pred"] + pert_loss["enc1_p01_pred"] + pert_loss["enc1_p12_pred"]
             reg_term_2 = pert_loss["enc2_p2_pred"] + pert_loss["enc2_p12_pred"] + pert_loss["enc2_p02_pred"]
             reg_term = self.l * (-reg_term_0 - reg_term_1 - reg_term_2)
 
-        elif self.reg_by == "dist_pred_all_max_cjsd":
+        elif self.reg_by == "colab":
             reg_term_0 = pert_loss["all_p0_pred"]
             reg_term_1 = pert_loss["all_p0_pred"]
             reg_term_2 = pert_loss["all_p0_pred"]
@@ -3019,15 +3019,15 @@ class Bias_Infusion_MCR_Reg(General_Bias_Infusion):
 
         pert_loss = self.get_perturbed_gradients(output)
 
-        if self.reg_by == "dist_pred_cjsd":
+        if self.reg_by == "greedy":
             reg_term = self.l * (-pert_loss["enc0_p0_pred"] + pert_loss["enc1_p0_pred"] - pert_loss["enc1_p1_pred"] + pert_loss["enc0_p1_pred"])
             reg_term_0 = pert_loss["enc0_p0_pred"]
             reg_term_1 = pert_loss["enc1_p1_pred"]
-        elif self.reg_by == "dist_pred_max_cjsd":
+        elif self.reg_by == "ind":
             reg_term = self.l * (-pert_loss["enc0_p0_pred"] - pert_loss["enc1_p1_pred"])
             reg_term_0 = pert_loss["enc0_p0_pred"]
             reg_term_1 = pert_loss["enc1_p1_pred"]
-        elif self.reg_by == "dist_pred_all_max_cjsd":
+        elif self.reg_by == "colab":
             reg_term_0 = pert_loss["all_p0_pred"]
             reg_term_1 = pert_loss["all_p1_pred"]
             reg_term = self.l * (-reg_term_0 - reg_term_1)
@@ -3377,7 +3377,7 @@ class Bias_Infusion_MCR3D_Reg(General_Bias_Infusion):
 
         pert_loss = self.get_perturbed_gradients(output)
 
-        if self.reg_by == "dist_pred_cjsd":
+        if self.reg_by == "greedy":
             reg_term_0 = pert_loss["enc0_p0_pred"] + pert_loss["enc0_p01_pred"] + pert_loss["enc0_p02_pred"]
             reg_term_1 = pert_loss["enc1_p1_pred"] + pert_loss["enc1_p01_pred"] + pert_loss["enc1_p12_pred"]
             reg_term_2 = pert_loss["enc2_p2_pred"] + pert_loss["enc2_p12_pred"] + pert_loss["enc2_p02_pred"]
@@ -3385,12 +3385,12 @@ class Bias_Infusion_MCR3D_Reg(General_Bias_Infusion):
             reg_term_1_min = pert_loss["enc1_p0_pred"] + pert_loss["enc1_p2_pred"] + pert_loss["enc1_p02_pred"]
             reg_term_2_min = pert_loss["enc2_p1_pred"] + pert_loss["enc2_p0_pred"] + pert_loss["enc2_p01_pred"]
             reg_term = self.l * (-reg_term_0 - reg_term_1 - reg_term_2 + reg_term_0_min + reg_term_1_min + reg_term_2_min)
-        elif self.reg_by == "dist_pred_max_cjsd":
+        elif self.reg_by == "ind":
             reg_term_0 = pert_loss["enc0_p0_pred"] + pert_loss["enc0_p01_pred"] + pert_loss["enc0_p02_pred"]
             reg_term_1 = pert_loss["enc1_p1_pred"] + pert_loss["enc1_p01_pred"] + pert_loss["enc1_p12_pred"]
             reg_term_2 = pert_loss["enc2_p2_pred"] + pert_loss["enc2_p12_pred"] + pert_loss["enc2_p02_pred"]
             reg_term = self.l * (-reg_term_0 - reg_term_1 - reg_term_2)
-        elif self.reg_by == "dist_pred_all_max_cjsd":
+        elif self.reg_by == "colab":
             reg_term_0 = pert_loss["all_p0_pred"]
             reg_term_1 = pert_loss["all_p0_pred"]
             reg_term_2 = pert_loss["all_p0_pred"]
