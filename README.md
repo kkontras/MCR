@@ -12,7 +12,7 @@ Official implementation of the paper
 
 ---
 
-[![NeurIPS 2025](https://img.shields.io/badge/NeurIPS-2025%20Spotlight-brightgreen)](https://nips.cc/)
+[![NeurIPS 2025](https://img.shields.io/badge/NeurIPS-2025%20Spotlight-brightgreen)](https://neurips.cc/virtual/2025/loc/san-diego/poster/117227)
 [![arXiv](https://img.shields.io/badge/arXiv-Download-lightgrey)](https://arxiv.org/abs/2411.07335)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
@@ -110,6 +110,14 @@ Training can be initiated via the command line. For example:
 python train.py --config ./configs/CREMA_D/res/MCR.json  --default_config ./configs/default_config.json --fold 0 --fold 0 --lr 0.0001 --wd 0.0001 --l 0.01 --multil 0.01 --num_samples 32 --reg_by greedy --batch_size 32 --contr_coeff 1 
 ```
 You will find all the configurations used for each training in the `run.sh` file.
+
+## Standalone MCR Implementation
+
+We provide a standalone implementation of MCR in `models/MCR_Model_StandAlone.py`, where the regularizer is integrated directly into the base model.
+
+This allows MCR to be used independently of the full pipeline.
+
+If you find this useful, we’d love to hear your feedback!
 
 ## Datasets
 
