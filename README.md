@@ -143,13 +143,12 @@ We welcome pull requests, issues, and discussions on this repository.
 
 If you find our work inspiring or use our codebase in your research, please consider giving a star ⭐ and a citation.
 ```markdown
-@misc{kontras2024mcr,
-      title={Multimodal Fusion Balancing Through Game-Theoretic Regularization}, 
-      author={Konstantinos Kontras and Thomas Strypsteen and Christos Chatzichristos and Paul Pu Liang and Matthew Blaschko and Maarten De Vos},
-      year={2024},
-      eprint={2411.07335},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2411.07335}, 
+@inproceedings{
+kontras2025MCR,
+title={Balancing Multimodal Training Through Game-Theoretic Regularization},
+author={Konstantinos Kontras and Thomas Strypsteen and Christos Chatzichristos and Paul Pu Liang and Matthew B. Blaschko and Maarten De Vos},
+booktitle={The Thirty-ninth Annual Conference on Neural Information Processing Systems},
+year={2025},
+url={https://openreview.net/forum?id=auiURbhoYx}
 }
 ```
