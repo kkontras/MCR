@@ -8,11 +8,14 @@ import torch.optim as optim
 import wandb
 from colorama import Fore
 
-from models.MCR_Models import *
-from models.SthSth_models import *
-from models.SyntheticData_Model import *
-from utils.schedulers.no_scheduler import No_Scheduler
-from utils.schedulers.warmup_scheduler import WarmupScheduler
+# from models.MCR_Models import *
+# from models.SthSth_models import *
+# from models.SyntheticData_Model import *
+# from utils.schedulers.no_scheduler import No_Scheduler
+# from utils.schedulers.warmup_scheduler import WarmupScheduler
+
+from models import *
+from utils.schedulers import *
 
 TORCHDYNAMO_VERBOSE = 1
 TORCH_LOGS = "+dynamo"
@@ -32,12 +35,22 @@ class Loader:
     def __init__(self, agent):
         self.agent = agent
 
+    def _resolve_model_path(self, file_path: str) -> str:
+        if not file_path:
+            return file_path
+        file_path = os.path.expandvars(os.path.expanduser(file_path))
+        if os.path.isabs(file_path):
+            return file_path
+        if "save_base_dir" in self.agent.config.model:
+            return os.path.join(self.agent.config.model.save_base_dir, file_path)
+        return file_path
+
     def load_pretrained_models(self):
         if "pretrained_model" in self.agent.config.model:
             if self.agent.config.model.pretrained_model["use"] and not self.agent.config.model.load_ongoing:
                 if self.agent.accelerator.ismainprocess:
                     self.agent.logger.info("Loading pretrained model from file {}".format(self.agent.config.model.pretrained_model["dir"]))
-                checkpoint = torch.load(self.agent.config.model.pretrained_model["dir"], weights_only=False)
+                checkpoint = torch.load(self._resolve_model_path(self.agent.config.model.pretrained_model["dir"]), weights_only=False)
                 self.agent.model.load_state_dict(checkpoint["model_state_dict"])
                 # self.agent.best_model.load_state_dict(checkpoint["best_model_state_dict"])
 
@@ -79,17 +92,11 @@ class Loader:
         model_class = globals()[self.agent.config.model.model_class]
 
         if "save_base_dir" in self.agent.config.model and "swin_backbone" in self.agent.config.model.args:
-            self.agent.config.model.args.swin_backbone = os.path.join(
-                self.agent.config.model.save_base_dir,
-                self.agent.config.model.args.swin_backbone,
-            )
+            self.agent.config.model.args.swin_backbone = self._resolve_model_path(self.agent.config.model.args.swin_backbone)
 
         if "save_base_dir" in self.agent.config.model and "pretraining_paths" in self.agent.config.model.args:
             self.agent.config.model.args.pretraining_paths = {
-                i: os.path.join(
-                    self.agent.config.model.save_base_dir,
-                    self.agent.config.model.args.pretraining_paths[i],
-                )
+                i: self._resolve_model_path(self.agent.config.model.args.pretraining_paths[i])
                 for i in self.agent.config.model.args.pretraining_paths
             }
 
@@ -389,8 +396,7 @@ class Loader:
             if pretrained_encoder_args["use"]:
 
                 file_path = pretrained_encoder_args.get("dir", "")
-                if "save_base_dir" in self.agent.config.model:
-                    file_path = os.path.join(self.agent.config.model.save_base_dir, file_path)
+                file_path = self._resolve_model_path(file_path)
                 checkpoint = torch.load(file_path, weights_only=False)
                 if "encoder_state_dict" in checkpoint:
                     missing_keys, unexpected_keys = enc.load_state_dict(checkpoint["encoder_state_dict"], strict=False)

@@ -65,6 +65,9 @@ class Monitor_n_Save:
         save_dict.update(savior)
 
         try:
+            parent_dir = os.path.dirname(file_name)
+            if parent_dir:
+                os.makedirs(parent_dir, exist_ok=True)
             self.agent.accelerator.save(save_dict, file_name)
             if verbose:
                 self.agent.logger.info(Fore.WHITE + "Models has saved successfully in {}".format(file_name))

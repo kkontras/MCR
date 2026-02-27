@@ -35,7 +35,7 @@
           "freeze_encoder": false},
         "pretrainedEncoder": {
           "use": false,
-          "dir": "unimodal_video{}.pth.tar"
+          "dir": "unimodal_video_{}.pth.tar"
         }
       },
       {
