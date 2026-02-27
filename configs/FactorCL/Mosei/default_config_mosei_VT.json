@@ -46,9 +46,9 @@
   },
   "dataset": {
       "dataloader_class": "FactorCL_Dataloader",
-      "data_roots": "project_default_directory/FactorCL/mosei_senti_data.pkl"
+      "data_roots": "project_data_directory/FactorCL/mosei_senti_data.pkl"
   },
   "model": {
-    "save_base_dir": "project_default_directory/data/Balance_Final/MOSEI/VT"
+    "save_base_dir": "project_checkpoints_directory/MOSEI/VT"
   }
 }

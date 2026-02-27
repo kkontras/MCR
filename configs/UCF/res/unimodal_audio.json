@@ -5,7 +5,9 @@
   "num_classes": 5,
   "training_params": {
     "cuda": true,
-    "gpu_device": [0],
+    "gpu_device": [
+      0
+    ],
     "seed": 109,
     "batch_size": 32,
     "test_batch_size": 32,
@@ -25,7 +27,11 @@
     "wandb_disable": false,
     "res": true
   },
-  "scheduler": {"type":"cosanneal", "max_lr": 0.03, "warm_up_steps": 780},
+  "scheduler": {
+    "type": "cosanneal",
+    "max_lr": 0.03,
+    "warm_up_steps": 780
+  },
   "optimizer": {
     "type": "Adam",
     "learning_rate": 0.001,
@@ -48,24 +54,27 @@
     "validate_with": "accuracy"
   },
   "dataset": {
-      "dataloader_class": "UCF_Dataloader",
-      "data_roots": "project_default_directory/UCF",
-      "fps": 1,
-      "num_frame": 4,
-      "fold": 1
+    "dataloader_class": "UCF_Dataloader",
+    "data_roots": "project_data_directory/UCF101",
+    "fps": 1,
+    "num_frame": 4,
+    "fold": 1
   },
   "model": {
     "model_class": "Audio_ResNet",
     "args": {
-      "num_classes": 51, "d_model": 512,  "fc_inner": 64, "dropout": 0.1,
+      "num_classes": 51,
+      "d_model": 512,
+      "fc_inner": 64,
+      "dropout": 0.1,
       "shared_pred": false,
       "multi_loss": {
         "multi_supervised_w": {
-             "combined": 1
-          }
+          "combined": 1
+        }
       }
     },
     "load_ongoing": true,
-    "save_dir": "project_default_directory/data/Balance_Final/UCF/res/unimodal_audio_{}.pth.tar"
+    "save_dir": "project_checkpoints_directory/UCF/res/unimodal_audio_{}.pth.tar"
   }
 }

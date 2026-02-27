@@ -1,3 +1,30 @@
+#!/usr/bin/env bash
+
+# Load user-local path overrides (ignored by git), if present.
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -f "${script_dir}/.project_paths.sh" ]; then
+  # shellcheck disable=SC1091
+  source "${script_dir}/.project_paths.sh"
+fi
+
+# Defaults (all can be overridden via environment or .project_paths.sh).
+if [ -z "${PROJECT_DEFAULT_DIR:-}" ]; then
+  echo "[run.sh] PROJECT_DEFAULT_DIR is not set; using script directory."
+fi
+project_default_dir="${PROJECT_DEFAULT_DIR:-$script_dir}"
+export PROJECT_DEFAULT_DIR="$project_default_dir"
+
+if [ -z "${PROJECT_DATA_DIR:-}" ]; then
+  echo "[run.sh] PROJECT_DATA_DIR is not set; defaulting to \$PROJECT_DEFAULT_DIR/data."
+fi
+export PROJECT_DATA_DIR="${PROJECT_DATA_DIR:-${PROJECT_DEFAULT_DIR}/data}"
+
+if [ -z "${PROJECT_CHECKPOINTS_DIR:-}" ]; then
+  echo "[run.sh] PROJECT_CHECKPOINTS_DIR is not set; defaulting to \$PROJECT_DEFAULT_DIR/checkpoints."
+fi
+export PROJECT_CHECKPOINTS_DIR="${PROJECT_CHECKPOINTS_DIR:-${PROJECT_DEFAULT_DIR}/checkpoints}"
+
+cd "$project_default_dir"
 
 ###CREMA-D Res
 python train.py --config ./configs/CREMA_D/release/res/unimodal_audio.json --default_config ./configs/CREMA_D/default_config_cremad_res.json --fold 0 --lr 0.001 --wd 0.0001
@@ -179,6 +206,3 @@ python train.py --config ./configs/SthSth/release/ReconBoost.json --default_conf
 python train.py --config ./configs/SthSth/release/MMPareto.json --default_config ./configs/SthSth/default_config_sthsth_2mod.json --fold 0 --alpha 3.0
 python train.py --config ./configs/SthSth/release/DnR.json --default_config ./configs/SthSth/default_config_sthsth_2mod.json --fold 0 --alpha 3.0
 python train.py --config ./configs/SthSth/release/MCR.json --default_config ./configs/SthSth/default_config_sthsth_2mod.json --lr 0.00001 --fold 0 --l 0.1 --multil 1 --num_samples 16 --reg_by greedy --contr_coeff 1 --lib 1 --pre
-
-
-

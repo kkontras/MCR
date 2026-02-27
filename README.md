@@ -105,6 +105,30 @@ MCR/
 
 ---
 
+## Path Setup (Required)
+
+Before running any experiment, set these paths:
+
+- `PROJECT_DEFAULT_DIR`: repository root
+- `PROJECT_CHECKPOINTS_DIR`: where checkpoints are saved  
+  default: `PROJECT_DEFAULT_DIR/checkpoints`
+- `PROJECT_DATA_DIR`: where datasets are read from  
+  default: `PROJECT_DEFAULT_DIR/data`
+
+`run.sh` automatically loads a local file named `.project_paths.sh` (gitignored) if present.
+
+Example `.project_paths.sh`:
+```bash
+#!/usr/bin/env bash
+export PROJECT_DEFAULT_DIR="/path/to/MCR_Git"
+export PROJECT_CHECKPOINTS_DIR="/path/to/checkpoints_root"
+export PROJECT_DATA_DIR="/path/to/data_root"
+```
+
+In this repository, config placeholders are resolved automatically:
+- `project_data_directory/...` -> `PROJECT_DATA_DIR/...`
+- `project_checkpoints_directory/...` -> `PROJECT_CHECKPOINTS_DIR/...`
+
 Training can be initiated via the command line. For example:
 ```bash
 python train.py --config ./configs/CREMA_D/res/MCR.json  --default_config ./configs/default_config.json --fold 0 --fold 0 --lr 0.0001 --wd 0.0001 --l 0.01 --multil 0.01 --num_samples 32 --reg_by greedy --batch_size 32 --contr_coeff 1 

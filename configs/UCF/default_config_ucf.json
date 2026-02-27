@@ -5,7 +5,9 @@
   "num_classes": 5,
   "training_params": {
     "cuda": true,
-    "gpu_device": [0],
+    "gpu_device": [
+      0
+    ],
     "seed": 109,
     "batch_size": 32,
     "test_batch_size": 32,
@@ -25,7 +27,11 @@
     "wandb_disable": true,
     "res": true
   },
-  "scheduler": {"type":"cosanneal", "max_lr": 0.03, "warm_up_steps": 780},
+  "scheduler": {
+    "type": "cosanneal",
+    "max_lr": 0.03,
+    "warm_up_steps": 780
+  },
   "optimizer": {
     "type": "Adam",
     "learning_rate": 0.001,
@@ -48,15 +54,15 @@
     "validate_with": "accuracy"
   },
   "dataset": {
-      "dataloader_class": "UCF_Dataloader",
-      "data_roots": "project_default_directory/UCF",
-      "data_split": {
-        "fold": 1
-      },
-      "fps": 1,
-      "num_frame": 4
+    "dataloader_class": "UCF_Dataloader",
+    "data_roots": "project_data_directory/UCF101",
+    "data_split": {
+      "fold": 1
+    },
+    "fps": 1,
+    "num_frame": 4
   },
   "model": {
-    "save_base_dir": "project_default_directory/data/Balance_Final/UCF/res"
+    "save_base_dir": "project_checkpoints_directory/UCF/res"
   }
 }

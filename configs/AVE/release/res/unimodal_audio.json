@@ -49,7 +49,7 @@
   },
   "dataset": {
       "dataloader_class": "AVE_Dataloader",
-      "data_roots": "project_default_directory/AVE/AVE_Dataset",
+      "data_roots": "project_data_directory/AVE/AVE_Dataset",
       "fps": 1,
       "data_split": {},
       "return_data": {"video": false, "spectrogram":true, "audio":false},

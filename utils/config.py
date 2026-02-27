@@ -1,12 +1,37 @@
 import copy
 import json
 import logging
+import os
 import sys
 from logging import Formatter
 from logging.handlers import RotatingFileHandler
 from pprint import pprint
 
 from easydict import EasyDict
+
+
+def _resolve_path_placeholders(value, data_dir, checkpoints_dir):
+    if isinstance(value, EasyDict):
+        return EasyDict({k: _resolve_path_placeholders(v, data_dir, checkpoints_dir) for k, v in value.items()})
+    if isinstance(value, dict):
+        return {k: _resolve_path_placeholders(v, data_dir, checkpoints_dir) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_resolve_path_placeholders(v, data_dir, checkpoints_dir) for v in value]
+    if isinstance(value, str):
+        # Backward compatibility for existing configs.
+        value = value.replace("project_default_directory/data/Balance_Final", checkpoints_dir)
+        value = value.replace("project_default_directory", data_dir)
+        # Explicit placeholders preferred going forward.
+        value = value.replace("project_checkpoints_directory", checkpoints_dir)
+        value = value.replace("project_data_directory", data_dir)
+    return value
+
+
+def _apply_project_paths(config):
+    project_default_dir = os.path.abspath(os.getenv("PROJECT_DEFAULT_DIR", os.getcwd()))
+    data_dir = os.path.abspath(os.getenv("PROJECT_DATA_DIR", os.path.join(project_default_dir, "data")))
+    checkpoints_dir = os.path.abspath(os.getenv("PROJECT_CHECKPOINTS_DIR", os.path.join(project_default_dir, "checkpoints")))
+    return _resolve_path_placeholders(config, data_dir, checkpoints_dir)
 
 
 def setup_logging(log_dir):
@@ -108,6 +133,7 @@ def process_config_default(json_file, default_files=False, printing=True):
     if default_files:
         default_config, _ = get_config_from_json(default_files)
         config = merge_dicts(default_config, config)
+    config = _apply_project_paths(config)
 
     if printing:
         config_logger.info(" THE Configuration of your experiment ..")
@@ -150,6 +176,7 @@ def process_config(json_file, printing=True):
     if printing:
         config_logger.info(json_file)
     config, _ = get_config_from_json(json_file)
+    config = _apply_project_paths(config)
     if printing:
         config_logger.info(" THE Configuration of your experiment ..")
         pprint(config)
