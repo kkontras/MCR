@@ -19,10 +19,12 @@ if [ -z "${PROJECT_DATA_DIR:-}" ]; then
 fi
 export PROJECT_DATA_DIR="${PROJECT_DATA_DIR:-${PROJECT_DEFAULT_DIR}/data}"
 
-if [ -z "${PROJECT_CHECKPOINTS_DIR:-}" ]; then
-  echo "[run.sh] PROJECT_CHECKPOINTS_DIR is not set; defaulting to \$PROJECT_DEFAULT_DIR/checkpoints."
+if [ -z "${PROJECT_CHECKPOINTS_DIR:-}" ] && [ -z "${PROJECT_CHECKPOINT_DIR:-}" ]; then
+  echo "[run.sh] PROJECT_CHECKPOINT_DIR is not set; defaulting to \$PROJECT_DEFAULT_DIR/checkpoints."
 fi
-export PROJECT_CHECKPOINTS_DIR="${PROJECT_CHECKPOINTS_DIR:-${PROJECT_DEFAULT_DIR}/checkpoints}"
+project_checkpoint_dir="${PROJECT_CHECKPOINTS_DIR:-${PROJECT_CHECKPOINT_DIR:-${PROJECT_DEFAULT_DIR}/checkpoints}}"
+export PROJECT_CHECKPOINT_DIR="$project_checkpoint_dir"
+export PROJECT_CHECKPOINTS_DIR="$project_checkpoint_dir"
 
 cd "$project_default_dir"
 

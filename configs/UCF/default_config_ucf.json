@@ -55,7 +55,7 @@
   },
   "dataset": {
     "dataloader_class": "UCF_Dataloader",
-    "data_roots": "project_data_directory/UCF101",
+    "data_roots": "${PROJECT_DATA_DIR}/UCF101",
     "data_split": {
       "fold": 1
     },
@@ -63,6 +63,6 @@
     "num_frame": 4
   },
   "model": {
-    "save_base_dir": "project_checkpoints_directory/UCF/res"
+    "save_base_dir": "${PROJECT_CHECKPOINT_DIR}/UCF/res"
   }
 }

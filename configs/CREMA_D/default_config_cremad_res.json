@@ -46,7 +46,7 @@
   },
   "dataset": {
       "dataloader_class": "CramedD_Dataloader",
-      "data_roots": "project_data_directory/CremaD/CREMA-D",
+      "data_roots": "${PROJECT_DATA_DIR}/CremaD/CREMA-D",
       "norm_wav_path": "./datasets/CREMAD/wav_norm_16000_fold{}.pkl",
       "norm_face_path": "./datasets/CREMAD/norm_face_path_fold{}.pkl",
       "return_data":{"video": true, "spectrogram":true, "audio":false, "face":false},
@@ -58,7 +58,6 @@
       "num_frame": 3
   },
   "model": {
-    "save_base_dir": "project_checkpoints_directory/CREMA-D/res"
+    "save_base_dir": "${PROJECT_CHECKPOINT_DIR}/CREMA-D/res"
   }
 }
-

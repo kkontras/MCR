@@ -47,7 +47,7 @@
   },
   "dataset": {
       "dataloader_class": "AVE_Dataloader",
-      "data_roots": "project_data_directory/AVE/AVE_Dataset",
+      "data_roots": "${PROJECT_DATA_DIR}/AVE/AVE_Dataset",
       "fps": 1,
       "data_split": {},
       "num_frame": 4

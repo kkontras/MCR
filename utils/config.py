@@ -24,13 +24,20 @@ def _resolve_path_placeholders(value, data_dir, checkpoints_dir):
         # Explicit placeholders preferred going forward.
         value = value.replace("project_checkpoints_directory", checkpoints_dir)
         value = value.replace("project_data_directory", data_dir)
+        # Support shell-style variables directly in config files.
+        value = os.path.expandvars(value)
     return value
 
 
 def _apply_project_paths(config):
     project_default_dir = os.path.abspath(os.getenv("PROJECT_DEFAULT_DIR", os.getcwd()))
     data_dir = os.path.abspath(os.getenv("PROJECT_DATA_DIR", os.path.join(project_default_dir, "data")))
-    checkpoints_dir = os.path.abspath(os.getenv("PROJECT_CHECKPOINTS_DIR", os.path.join(project_default_dir, "checkpoints")))
+    checkpoints_env = os.getenv("PROJECT_CHECKPOINTS_DIR", os.getenv("PROJECT_CHECKPOINT_DIR"))
+    checkpoints_dir = os.path.abspath(checkpoints_env or os.path.join(project_default_dir, "checkpoints"))
+    os.environ.setdefault("PROJECT_DEFAULT_DIR", project_default_dir)
+    os.environ.setdefault("PROJECT_DATA_DIR", data_dir)
+    os.environ.setdefault("PROJECT_CHECKPOINT_DIR", checkpoints_dir)
+    os.environ.setdefault("PROJECT_CHECKPOINTS_DIR", checkpoints_dir)
     return _resolve_path_placeholders(config, data_dir, checkpoints_dir)
 
 

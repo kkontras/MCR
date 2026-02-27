@@ -46,11 +46,11 @@
   },
   "dataset": {
       "dataloader_class": "FactorCL_Dataloader",
-      "data_roots": "project_data_directory/FactorCL/mosi_data.pkl"
+      "data_roots": "${PROJECT_DATA_DIR}/FactorCL/mosi_data.pkl"
   },
   "model": {
     "model_class": "Base_Model",
-    "save_base_dir": "project_checkpoints_directory/MOSI/VTA",
+    "save_base_dir": "${PROJECT_CHECKPOINT_DIR}/MOSI/VTA",
     "args": {
       "d_model": 40,
       "num_classes": 1,
