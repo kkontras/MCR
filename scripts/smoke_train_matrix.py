@@ -66,13 +66,18 @@ def build_case_config(case: SmokeCase, checkpoint_root: Path, batch_size: int) -
     cfg["early_stopping"]["n_steps_stop"] = 1
     cfg["early_stopping"]["n_steps_stop_after"] = 0
     cfg["early_stopping"]["validate_after"] = 0
-    cfg["early_stopping"]["save_every_valstep"] = 10**9
+    # Force a checkpoint write on every validation step in smoke mode.
+    cfg["early_stopping"]["save_every_valstep"] = 1
 
     cfg["model"]["load_ongoing"] = False
     cfg["model"]["start_over"] = True
     cfg["model"]["save_base_dir"] = str(checkpoint_root / case.suite)
     if "save_dir" not in cfg["model"] or not cfg["model"]["save_dir"]:
         cfg["model"]["save_dir"] = f"smoke_{case.method}" + "_{}.pth.tar"
+    else:
+        # In smoke mode, force save_dir to be relative so save/load resolve under smoke save_base_dir.
+        save_dir = str(cfg["model"]["save_dir"])
+        cfg["model"]["save_dir"] = os.path.basename(save_dir.replace("\\", "/"))
 
     if isinstance(cfg["dataset"].get("data_split"), dict):
         cfg["dataset"]["data_split"]["fold"] = case.fold
@@ -102,6 +107,15 @@ def discover_cases(repo_root: Path, suites: List[DatasetSuite], selected: List[s
     return cases
 
 
+def case_priority(case: SmokeCase) -> Tuple[int, str]:
+    method = case.method.lower()
+    if method.startswith("unimodal_"):
+        return (0, method)
+    if method in ("ens", "pre_frozen", "pre_finetuned"):
+        return (1, method)
+    return (2, method)
+
+
 def run_case(
     repo_root: Path,
     case: SmokeCase,
@@ -109,7 +123,8 @@ def run_case(
     python_bin: str,
     timeout_sec: int,
     log_dir: Path,
-) -> Tuple[bool, float, str]:
+    env: Dict[str, str],
+) -> Tuple[bool, float, str, str]:
     cmd = [
         python_bin,
         "train.py",
@@ -127,6 +142,7 @@ def run_case(
         capture_output=True,
         text=True,
         timeout=timeout_sec,
+        env=env,
     )
     elapsed = time.time() - started
     log_file = log_dir / f"{case.suite}_{case.method}.log"
@@ -135,7 +151,7 @@ def run_case(
         if proc.stderr:
             f.write("\n[stderr]\n")
             f.write(proc.stderr)
-    return proc.returncode == 0, elapsed, str(log_file)
+    return proc.returncode == 0, elapsed, str(log_file), proc.stdout
 
 
 def build_suites(repo_root: Path) -> List[DatasetSuite]:
@@ -231,6 +247,22 @@ def parse_args() -> argparse.Namespace:
         default="",
         help="Override checkpoint root for smoke runs. Defaults to a temp dir.",
     )
+    parser.add_argument(
+        "--project-data-dir",
+        default="",
+        help="Dataset root. If omitted, uses $PROJECT_DATA_DIR (must exist).",
+    )
+    parser.add_argument(
+        "--project-checkpoint-dir",
+        default="",
+        help="Checkpoint root. If omitted, uses temp dir for smoke runs.",
+    )
+    parser.add_argument(
+        "--skip-methods",
+        nargs="+",
+        default=["MLA"],
+        help="Method names to skip (case-insensitive). Default: MLA.",
+    )
     return parser.parse_args()
 
 
@@ -239,6 +271,9 @@ def main() -> int:
     repo_root = Path(__file__).resolve().parents[1]
     suites = build_suites(repo_root)
     cases = discover_cases(repo_root, suites, args.datasets)
+    skip_methods = {m.lower() for m in args.skip_methods}
+    cases = [c for c in cases if c.method.lower() not in skip_methods]
+    cases = sorted(cases, key=lambda c: (c.suite.lower(),) + case_priority(c))
 
     if args.max_cases > 0:
         cases = cases[: args.max_cases]
@@ -254,7 +289,16 @@ def main() -> int:
     if args.dry_run:
         return 0
 
-    checkpoint_root = Path(args.checkpoint_root).resolve() if args.checkpoint_root else Path(tempfile.mkdtemp(prefix="mcr_smoke_ckpt_"))
+    project_data_dir = args.project_data_dir or os.getenv("PROJECT_DATA_DIR", "")
+    if not project_data_dir:
+        print("ERROR: PROJECT_DATA_DIR is not set. Provide --project-data-dir or export PROJECT_DATA_DIR.")
+        return 2
+    if not Path(project_data_dir).exists():
+        print(f"ERROR: PROJECT_DATA_DIR does not exist: {project_data_dir}")
+        return 2
+
+    checkpoint_root_arg = args.project_checkpoint_dir or args.checkpoint_root
+    checkpoint_root = Path(checkpoint_root_arg).resolve() if checkpoint_root_arg else Path(tempfile.mkdtemp(prefix="mcr_smoke_ckpt_"))
     tmp_cfg_dir = Path(tempfile.mkdtemp(prefix="mcr_smoke_cfg_"))
     log_dir = Path(tempfile.mkdtemp(prefix="mcr_smoke_logs_"))
     checkpoint_root.mkdir(parents=True, exist_ok=True)
@@ -272,15 +316,31 @@ def main() -> int:
         with case_cfg_path.open("w", encoding="utf-8") as f:
             json.dump(case_cfg, f, indent=2)
 
-        ok, elapsed, log_file = run_case(
+        run_env = os.environ.copy()
+        run_env["PROJECT_DATA_DIR"] = str(Path(project_data_dir).resolve())
+        run_env["PROJECT_CHECKPOINT_DIR"] = str(checkpoint_root.resolve())
+        run_env["PROJECT_CHECKPOINTS_DIR"] = str(checkpoint_root.resolve())
+
+        ok, elapsed, log_file, stdout_text = run_case(
             repo_root=repo_root,
             case=case,
             case_config_path=case_cfg_path,
             python_bin=args.python_bin,
             timeout_sec=args.timeout_sec,
             log_dir=log_dir,
+            env=run_env,
         )
-        print(f"  {'PASS' if ok else 'FAIL'} ({elapsed:.1f}s) log={log_file}")
+        saved_checkpoint = ""
+        for line in stdout_text.splitlines():
+            if "save_dir:" in line:
+                saved_checkpoint = line.split("save_dir:", 1)[1].strip()
+                break
+        saved_exists = False
+        saved_path = ""
+        if saved_checkpoint:
+            saved_path = str((checkpoint_root / case.suite / os.path.basename(saved_checkpoint)).resolve())
+            saved_exists = os.path.exists(saved_path)
+        print(f"  {'PASS' if ok else 'FAIL'} ({elapsed:.1f}s) log={log_file} saved={saved_exists}")
         results.append(
             {
                 "suite": case.suite,
@@ -291,6 +351,8 @@ def main() -> int:
                 "ok": ok,
                 "elapsed_sec": elapsed,
                 "log_file": log_file,
+                "saved_checkpoint": saved_path,
+                "saved_exists": saved_exists,
             }
         )
         if not ok:

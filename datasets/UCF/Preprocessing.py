@@ -45,6 +45,33 @@ def extract_frames_and_audio(video_paths, labels, num):
     }
 
 
+def _parse_ucf_list(file_path, data_roots, class_to_int, expect_labels=None):
+    """
+    Parse UCF split files.
+    - train-like format: "ClassName/video.avi <label>"
+    - test-like format:  "ClassName/video.avi"
+    If expect_labels is None, format is auto-detected per line.
+    """
+    paths, labels = [], []
+    with open(file_path, "r") as file:
+        for line in file:
+            values = line.replace("\n", "").strip().split()
+            if len(values) == 0:
+                continue
+
+            rel_path = values[0]
+            has_label = len(values) > 1
+            use_label = has_label if expect_labels is None else expect_labels
+
+            paths.append(os.path.join(data_roots, "UCF-101", rel_path))
+            if use_label:
+                if has_label:
+                    labels.append(values[1])
+                else:
+                    labels.append(class_to_int[rel_path.split("/")[0]])
+    return paths, np.array(labels).astype(int)
+
+
 data_roots = "project_default_directory/UCF"
 
 annotation_folder = os.path.join(data_roots, "Split_kkontras")
@@ -62,30 +89,9 @@ with open(
         class_to_int[values[1]] = values[0]
 
 
-train_data, train_labels = [], []
-
-with open(annotation_train, "r") as file:
-    for line in file:
-        values = line.replace("\n", "").strip().split(" ")
-        train_data.append(os.path.join(os.path.join(data_roots, "UCF-101"), values[0]))
-        train_labels.append(values[1])
-train_labels = np.array(train_labels).astype(int)
-
-val_data, val_labels = [], []
-with open(annotation_val, "r") as file:
-    for line in file:
-        values = line.replace("\n", "").strip().split(" ")
-        val_data.append(os.path.join(os.path.join(data_roots, "UCF-101"), values[0]))
-        val_labels.append(values[1])
-val_labels = np.array(val_labels).astype(int)
-
-test_data, test_labels = [], []
-with open(annotation_test, "r") as file:
-    for line in file:
-        values = line.replace("\n", "").strip().split(" ")
-        test_data.append(os.path.join(os.path.join(data_roots, "UCF-101"), values[0]))
-        test_labels.append(class_to_int[values[0].split("/")[0]])
-test_labels = np.array(test_labels).astype(int)
+train_data, train_labels = _parse_ucf_list(annotation_train, data_roots, class_to_int, expect_labels=True)
+val_data, val_labels = _parse_ucf_list(annotation_val, data_roots, class_to_int, expect_labels=None)
+test_data, test_labels = _parse_ucf_list(annotation_test, data_roots, class_to_int, expect_labels=False)
 
 metrics_scrumble = [extract_frames_and_audio(train_data, train_labels, num) for num in tqdm(range(len(train_labels)), "Mean-STD Calculating ")]
 total_train_data = {i: res[i] for res in metrics_scrumble for i in res}
