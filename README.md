@@ -153,8 +153,8 @@ Our experiments evaluate MCR across diverse multimodal benchmarks.
 | **AVE**               | Video + Audio           | Action recognition        | [AVE](https://github.com/ysricuan/AVE-ECCV18) |
 | **UCF**            | Video (+ Audio)         | Action recognition                     | [UCF](https://www.crcv.ucf.edu/data/UCF101.php) |
 | **CMU-MOSI**          | Video + Audio + Text    | Sentiment analysis                     | [MOSI](https://github.com/A2Zadeh/CMU-MultimodalSDK) |
-| **CMU-MOSEI**         | Video + Audio + Text    | Sentiment & emotion analysis           | [MOSEI](https://github.com/A2Zadeh/CMU-MultimodalSDK) |
-| **Something-Something v2** | Video + Optical Flow    | Fine-grained action recognition        | [Sth-Sth](https://20bn.com/datasets/something-something) |
+| **CMU-MOSEI**         | Video + Audio + Text    | Sentiment & emotion analysis           | [MOSEI](https://github.com/A2Zadeh/CMU-MultimodalSDK) | 
+| **Something-Something v2** | Video + Optical Flow    | Fine-grained action recognition        | [Sth-Sth](https://github.com/gorjanradevski/multimodal-distillation) |
 
 
 ## Contact
