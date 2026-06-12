@@ -131,7 +131,7 @@ In this repository, config placeholders are resolved automatically:
 
 Training can be initiated via the command line. For example:
 ```bash
-python train.py --config ./configs/CREMA_D/res/MCR.json  --default_config ./configs/default_config.json --fold 0 --fold 0 --lr 0.0001 --wd 0.0001 --l 0.01 --multil 0.01 --num_samples 32 --reg_by greedy --batch_size 32 --contr_coeff 1 
+python train.py --config ./configs/CREMA_D/res/MCR.json  --default_config ./configs/CREMA_D/default_config_cremad_res.json --fold 0 --fold 0 --lr 0.0001 --wd 0.0001 --l 0.01 --multil 0.01 --num_samples 32 --reg_by greedy --batch_size 32 --contr_coeff 1 
 ```
 You will find all the configurations used for each training in the `run.sh` file.
 
